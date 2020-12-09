@@ -51,9 +51,10 @@ app.post('/dist/subscribe', async (req, res) => {
 
 app.get('/dist/events', async (req, res) => handleEvents(req, res));
 
-app.get('/robots.txt', async (req, res) =>
-	res.sendFile(path.join(__dirname + '/robots.txt'))
-);
+app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.send("User-agent: *\nDisallow: /");
+});
 
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));
